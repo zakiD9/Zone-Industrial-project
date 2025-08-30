@@ -3,6 +3,29 @@ import { Button } from '@mui/material'
 import Header from '../components/Home/Header'
 import ServiceBox from '../components/Home/ServiceBox'
 import { ArrowRight } from '@mui/icons-material'
+import Footer from '../components/Home/Footer'
+import Contact from '../components/Home/Contactus'
+
+  const services = [
+    {
+      title: "Web Development",
+      description: "Build fast, modern, and responsive websites.",
+      image: "https://dummyimage.com/720x400",
+      link: "#",
+    },
+    {
+      title: "UI/UX Design",
+      description: "Craft beautiful and user-friendly interfaces.",
+      image: "https://dummyimage.com/721x401",
+      link: "#",
+    },
+    {
+      title: "SEO Optimization",
+      description: "Improve your site's ranking on search engines.",
+      image: "https://dummyimage.com/722x402",
+      link: "#",
+    },
+  ];
 
 export default function Home() {
 
@@ -52,8 +75,17 @@ export default function Home() {
       </div>
       <div className='flex flex-col items-center py-5'>
         <h1 className='text-3xl font-semibold'>Our Services</h1>
-      <ServiceBox />
+        <section className="text-gray-600 body-font">
+          <div className="container px-5 py-24 mx-auto">
+            <div className="flex flex-wrap -m-4">
+              {services.map((service, index)=>(<ServiceBox key={index} service={service}/>))}
+              
+            </div>
+          </div>
+        </section>
       </div>
+      <Contact />
+      <Footer />
     </div>
   )
 }
