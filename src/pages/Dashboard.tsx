@@ -9,15 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { DemoProvider, useDemoRouter } from "@toolpad/core/internal";
-
-function DashboardPage() {
-  return (
-    <Box p={3}>
-      <Typography variant="h4">Dashboard</Typography>
-      <Typography>Welcome to the Dashboard section 🚀</Typography>
-    </Box>
-  );
-}
+import DashboardSection from "../components/Dashboard/DashboardSection/DashboardSection";
 
 function OrdersPage() {
   return (
@@ -73,7 +65,7 @@ export default function Dashboard(props: DemoProps) {
   const renderContent = () => {
     switch (router.pathname) {
       case "/dashboard":
-        return <DashboardPage />;
+        return <DashboardSection />;
       case "/orders":
         return <OrdersPage />;
       case "/users":
