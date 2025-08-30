@@ -1,44 +1,33 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
-// Example data (you can replace with real API data later)
-const data = [
-  { name: "Accepted", value: 120 },
-  { name: "Rejected", value: 35 },
-];
+interface RequestsChartProps {
+  data: { label: string; count: number }[];
+}
 
-const COLORS = ["#4caf50", "#f44336"]; // green for accepted, red for rejected
+const COLORS = ["#4caf50", "#f44336", "#ff9800"];
 
-export default function RequestsChart() {
+export default function RequestsChart({ data }: RequestsChartProps) {
+  const chartData = data.filter(item => item.label !== "Total Requests");
+
   return (
-    <Paper elevation={3} sx={{ p: 3 }}>
-      <Typography variant="h6" gutterBottom>
-        Requests Overview
-      </Typography>
-      <Box sx={{ width: "100%", height: 300 }}>
-        <ResponsiveContainer>
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={100}
-              fill="#8884d8"
-              paddingAngle={5}
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
-      </Box>
-    </Paper>
+    <ResponsiveContainer width="100%" height={300}>
+      <PieChart>
+        <Pie
+          data={chartData}
+          dataKey="count"
+          nameKey="label"
+          cx="50%"
+          cy="50%"
+          outerRadius={100}
+          label
+        >
+          {chartData.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
   );
 }
