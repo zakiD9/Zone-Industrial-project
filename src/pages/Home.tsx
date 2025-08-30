@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <div className="bg-white">
       <Header />
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div id='home' className="relative isolate px-6 pt-14 lg:px-8">
         <div
           aria-hidden="true"
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -56,7 +56,11 @@ export default function Home() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-3">
               <Button variant="contained">Get Started</Button>
-              <Button size="small" endIcon={<ArrowRight />}>Our services</Button>
+              <Button
+                size="small"
+                endIcon={<ArrowRight />}
+                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+              >Our services</Button>
             </div>
           </div>
         </div>
@@ -73,7 +77,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className='flex flex-col items-center py-5'>
+      <div id="services" className='flex flex-col items-center py-5'>
         <h1 className='text-3xl font-semibold'>Our Services</h1>
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">
