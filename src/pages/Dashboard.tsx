@@ -11,15 +11,8 @@ import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { DemoProvider, useDemoRouter } from "@toolpad/core/internal";
 import DashboardSection from "../components/Dashboard/DashboardSection/DashboardSection";
 import RequestSection from "../components/Dashboard/OrdersSection/RequestSection";
+import UsersSection from "../components/Dashboard/UsersSection/UsersSection";
 
-function UsersPage() {
-  return (
-    <Box p={3}>
-      <Typography variant="h4">Users</Typography>
-      <Typography>Manage your users here 👥</Typography>
-    </Box>
-  );
-}
 
 function LogoutPage() {
   return (
@@ -61,7 +54,7 @@ export default function Dashboard(props: DemoProps) {
       case "/orders":
         return <RequestSection />;
       case "/users":
-        return <UsersPage />;
+        return <UsersSection />;
       case "/logout":
         return <LogoutPage />;
       default:
