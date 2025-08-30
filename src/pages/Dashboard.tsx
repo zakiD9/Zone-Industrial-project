@@ -10,15 +10,7 @@ import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { DemoProvider, useDemoRouter } from "@toolpad/core/internal";
 import DashboardSection from "../components/Dashboard/DashboardSection/DashboardSection";
-
-function OrdersPage() {
-  return (
-    <Box p={3}>
-      <Typography variant="h4">Orders</Typography>
-      <Typography>Here you can manage all orders 📦</Typography>
-    </Box>
-  );
-}
+import RequestSection from "../components/Dashboard/OrdersSection/RequestSection";
 
 function UsersPage() {
   return (
@@ -67,7 +59,7 @@ export default function Dashboard(props: DemoProps) {
       case "/dashboard":
         return <DashboardSection />;
       case "/orders":
-        return <OrdersPage />;
+        return <RequestSection />;
       case "/users":
         return <UsersPage />;
       case "/logout":
