@@ -1,8 +1,7 @@
-// RequestFilter.tsx
 import { useState, ChangeEvent } from "react";
-import { Box, TextField, MenuItem, Select, InputLabel, FormControl, Stack } from "@mui/material";
+import { Stack, TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
-export type RequestStatus = "All" | "Pending" | "Accepted" | "Rejected" | "Canceled";
+export type RequestStatus = "All" | "Pending" | "Accepted" | "Refused" | "Canceled";
 
 interface RequestFilterProps {
   onFilterChange: (search: string, status: RequestStatus) => void;
@@ -34,13 +33,13 @@ export default function RequestFilter({ onFilterChange }: RequestFilterProps) {
         onChange={handleSearchChange}
       />
 
-      <FormControl sx={{ minWidth: 100 }}>
+      <FormControl sx={{ minWidth: 120 }}>
         <InputLabel>Status</InputLabel>
         <Select value={status} label="Status" onChange={handleStatusChange}>
           <MenuItem value="All">All</MenuItem>
           <MenuItem value="Pending">Pending</MenuItem>
           <MenuItem value="Accepted">Accepted</MenuItem>
-          <MenuItem value="Rejected">Rejected</MenuItem>
+          <MenuItem value="Refused">Refused</MenuItem>
           <MenuItem value="Canceled">Canceled</MenuItem>
         </Select>
       </FormControl>

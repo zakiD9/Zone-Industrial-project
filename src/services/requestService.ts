@@ -14,6 +14,6 @@ export const updateRequestStatus = async (id:number ,status:string): Promise<upd
 };
 
 export const getRequestsByStatus = async (status:string): Promise<RequestResponse> => {
-  const response = await API.get<RequestResponse>(`/request?status=${status}`);
+  const response = await API.get<RequestResponse>(`/request/request/status/${status}`);
   return response.data;
 };

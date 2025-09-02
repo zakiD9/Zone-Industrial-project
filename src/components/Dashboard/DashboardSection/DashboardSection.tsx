@@ -31,13 +31,13 @@ export default function DashboardSection() {
   }, []);
 
   const acceptedRequests = useMemo(() => requests.filter(r => r.status === "accepted").length, [requests]);
-  const rejectedRequests = useMemo(() => requests.filter(r => r.status === "rejected").length, [requests]);
+  const rejectedRequests = useMemo(() => requests.filter(r => r.status === "refused").length, [requests]);
   const pendingRequests = useMemo(() => requests.filter(r => r.status === "pending").length, [requests]);
   const totalRequests = requests.length;
 
   const stats = [
     { label: "Accepted Requests", count: acceptedRequests, icon: <CheckCircleOutlineIcon color="success" fontSize="large" /> },
-    { label: "Rejected Requests", count: rejectedRequests, icon: <CancelOutlinedIcon color="error" fontSize="large" /> },
+    { label: "Refused Requests", count: rejectedRequests, icon: <CancelOutlinedIcon color="error" fontSize="large" /> },
     { label: "Pending Requests", count: pendingRequests, icon: <HourglassEmptyOutlinedIcon color="warning" fontSize="large" /> },
     { label: "Total Requests", count: totalRequests, icon: <AssignmentTurnedInOutlinedIcon color="primary" fontSize="large" /> },
   ];
@@ -45,8 +45,8 @@ export default function DashboardSection() {
   const acceptedUsers = useMemo(() => users.filter(u => u.is_blocked === 0).length, [users]);
   const rejectedUsers = useMemo(() => users.filter(u => u.is_blocked === 1).length, [users]);
   const usersData = [
-    { label: "Accepted Users", count: acceptedUsers, icon: <Person fontSize="large" color="success" /> },
-    { label: "Rejected Users", count: rejectedUsers, icon: <Person fontSize="large" color="error" /> },
+    { label: "Unblocked Users", count: acceptedUsers, icon: <Person fontSize="large" color="success" /> },
+    { label: "Blocked Users", count: rejectedUsers, icon: <Person fontSize="large" color="error" /> },
   ];
 
   return (

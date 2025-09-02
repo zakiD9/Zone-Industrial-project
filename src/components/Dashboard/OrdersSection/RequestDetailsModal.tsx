@@ -10,18 +10,20 @@ import {
   Grid,
   Chip,
 } from "@mui/material";
+import { sendNotification } from "../../../services/notificationService";
 
 interface RequestModalProps {
   selectedRequest: Request | null;
   onClose: () => void;
-  handleAction: (action: "accepted" | "rejected", message: string) => void;
+  handleAction: (action: "accepted" | "refused") => void;
 }
 
 type Request = {
   id: number;
+  user_id: number;
   requestType: string;
   landSize: string;
-  status: "pending" | "accepted" | "rejected";
+  status: "pending" | "accepted" | "refused";
   createdAt: string;
   updatedAt: string;
   city?: string;
@@ -36,6 +38,7 @@ export default function RequestModal({
   handleAction,
 }: RequestModalProps) {
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const formattedCreatedAt = useMemo(
     () => selectedRequest && new Date(selectedRequest.createdAt).toLocaleString(),
@@ -47,17 +50,43 @@ export default function RequestModal({
     [selectedRequest]
   );
 
-  const handleDecision = (action: "accepted" | "rejected") => {
-    if (!message.trim()) return;
-    handleAction(action, message);
-    setMessage("");
+  // Map frontend action names to DB status values
+  const statusMap: Record<"accepted" | "refused", "accepted" | "refused"> = {
+    accepted: "accepted",
+    refused: "refused",
+  };
+
+  const handleDecision = async (action: "accepted" | "refused") => {
+    if (!message.trim() || !selectedRequest) return;
+
+    const dbStatus = statusMap[action];
+
+    setLoading(true);
+    try {
+      // Update request in backend
+      await handleAction(dbStatus, message);
+
+      // Send notification to user
+      await sendNotification(
+        selectedRequest.user_id,
+        `Your request #${selectedRequest.id} has been ${action}. Message: ${message}`
+      );
+
+      console.log("Notification sent successfully");
+      setMessage("");
+      onClose();
+    } catch (err) {
+      console.error("Failed to update request or send notification:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "accepted":
         return "success";
-      case "rejected":
+      case "refused":
         return "error";
       default:
         return "warning";
@@ -125,26 +154,27 @@ export default function RequestModal({
                 multiline
                 rows={3}
                 margin="normal"
+                disabled={loading}
               />
             </Grid>
           </Grid>
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose} disabled={loading}>Cancel</Button>
         <Button
-          onClick={() => handleDecision("rejected")}
+          onClick={() => handleDecision("refused")}
           color="error"
           variant="contained"
-          disabled={!message.trim()}
+          disabled={!message.trim() || loading}
         >
-          Reject
+          Refuse
         </Button>
         <Button
           onClick={() => handleDecision("accepted")}
           color="success"
           variant="contained"
-          disabled={!message.trim()}
+          disabled={!message.trim() || loading}
         >
           Accept
         </Button>
