@@ -12,18 +12,44 @@ import { DemoProvider, useDemoRouter } from "@toolpad/core/internal";
 import DashboardSection from "../components/Dashboard/DashboardSection/DashboardSection";
 import RequestSection from "../components/Dashboard/OrdersSection/RequestSection";
 import UsersSection from "../components/Dashboard/UsersSection/UsersSection";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { useUserStore } from "../store/UserStore";
+
 
 
 function LogoutPage() {
+  const [open, setOpen] = React.useState(true);
+  const logout = useUserStore((state) => state.logout);
+
+  const handleConfirm = () => {
+    logout(); 
+    setOpen(false);
+    window.location.href = "/login"; 
+  };
+
+  const handleCancel = () => {
+    setOpen(false);
+    window.location.href = "/admin";
+  };
+
   return (
-    <Box p={3}>
-      <Typography variant="h4" color="error">
-        Log Out
-      </Typography>
-      <Typography>You have been logged out.</Typography>
-    </Box>
+    <Dialog open={open} onClose={handleCancel}>
+      <DialogTitle>Confirm Logout</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Are you sure you want to log out?
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleConfirm} color="error" variant="contained">
+          Log Out
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
+
 
 const NAVIGATION: Navigation = [
   { segment: "dashboard", title: "Dashboard", icon: <DashboardIcon /> },

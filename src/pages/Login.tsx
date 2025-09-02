@@ -13,8 +13,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { loginAdmin } from "../services/userService";
 import type { LoginResponse } from "../services/types";
 import { useUserStore } from "../store/UserStore";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState("");
@@ -33,6 +35,7 @@ const Login = () => {
     
     loginUser(data.user, data.token);
     setSuccess("Login successful! Redirecting...");
+    navigate("/admin");
     console.log("Login successful:", data);
 
   } catch (err: any) {
