@@ -1,48 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RequestFilter from "./SearchndFilterRequest";
 import RequestTable from "./TableofRequests";
-
-const initialRequests = [
-  {
-    id: 1,
-    requestType: "Construction",
-    landSize: "200m²",
-    status: "pending", 
-    createdAt: "2025-08-01",
-    updatedAt: "2025-08-15",
-  },
-  {
-    id: 2,
-    requestType: "Agriculture",
-    landSize: "500m²",
-    status: "accepted", 
-    createdAt: "2025-08-05",
-    updatedAt: "2025-08-20",
-  },
-];
+import { useRequestStore } from "../../../store/RequestStore";
 
 export default function RequestSection() {
-  const [requests, setRequests] = useState(initialRequests);
+  const { requests, fetchRequests, filterRequests, updateRequest } = useRequestStore();
+  const [filterStatus, setFilterStatus] = useState<string>("All");
 
-  const updateRequest = (id: number, status: "accepted" | "rejected") => {
-    setRequests((prev) =>
-      prev.map((req) =>
-        req.id === id
-          ? { ...req, status, updatedAt: new Date().toISOString() }
-          : req
-      )
-    );
-  };
+  useEffect(() => {
+    fetchRequests();
+  }, [fetchRequests]);
+
+  const handleFilter = async (search: string, status: string) => {
+    setFilterStatus(status);
+    await filterRequests(filterStatus);
+};
+
 
   return (
     <div className="flex flex-col gap-3 mx-3 my-5">
       <h1 className="text-3xl font-bold">Requests</h1>
-      <RequestFilter
-        onFilterChange={(search, status) => {
-          console.log("Search:", search);
-          console.log("Status:", status);
-        }}
-      />
+      <RequestFilter onFilterChange={handleFilter} />
       <RequestTable requests={requests} onUpdate={updateRequest} />
     </div>
   );

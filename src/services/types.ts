@@ -1,3 +1,27 @@
+
+
+export type Request = {
+   id: number;
+   user_id: number;
+   landSize: number;
+   requestType: string;
+   status: string;
+   city: string;
+   state: string;
+   description: string;
+   documents: string[];
+};
+
+export type RequestResponse = Request[];
+
+export type updateRequestStatusResponse = {
+   id: number;
+   status: string;
+};
+
+
+// ------------------
+
 export type User = {
    id: number;
    email: string;

@@ -2,7 +2,7 @@
 import { useState, ChangeEvent } from "react";
 import { Box, TextField, MenuItem, Select, InputLabel, FormControl, Stack } from "@mui/material";
 
-export type RequestStatus = "All" | "Pending" | "Accepted" | "Rejected";
+export type RequestStatus = "All" | "Pending" | "Accepted" | "Rejected" | "Canceled";
 
 interface RequestFilterProps {
   onFilterChange: (search: string, status: RequestStatus) => void;
@@ -41,6 +41,7 @@ export default function RequestFilter({ onFilterChange }: RequestFilterProps) {
           <MenuItem value="Pending">Pending</MenuItem>
           <MenuItem value="Accepted">Accepted</MenuItem>
           <MenuItem value="Rejected">Rejected</MenuItem>
+          <MenuItem value="Canceled">Canceled</MenuItem>
         </Select>
       </FormControl>
     </Stack>

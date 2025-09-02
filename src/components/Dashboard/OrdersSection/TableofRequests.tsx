@@ -14,7 +14,7 @@ interface Request {
   id: number;
   requestType: string;
   landSize: string;
-  status: "pending" | "accepted" | "rejected";
+  status: "pending" | "accepted" | "rejected" | "canceled";
   createdAt: string;
   updatedAt: string;
 }
