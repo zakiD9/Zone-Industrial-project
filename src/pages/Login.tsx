@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { loginAdmin } from "../services/userService";
-import type { LoginResponse } from "../services/types/auth";
+import type { LoginResponse } from "../services/types";
 import { useUserStore } from "../store/UserStore";
 
 const Login = () => {

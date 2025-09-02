@@ -13,8 +13,7 @@ import {
   Stack,
 } from "@mui/material";
 import ConfirmationDialog from "./ConfirmBlockingorDeactivate";
-import { getAllUsers, blockUser, unblockUser } from "../../../services/userService";
-import type { User as ApiUser } from "../../../services/types/user";
+import { useUserStore } from "../../../store/UserStore";
 
 type TableUser = {
   id: number;
@@ -28,53 +27,29 @@ type TableUser = {
 };
 
 const UserTable: React.FC = () => {
-  const [users, setUsers] = useState<TableUser[]>([]);
+  const { users, fetchUsers, block, unblock } = useUserStore();
   const [search, setSearch] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<TableUser | null>(null);
   const [dialogAction, setDialogAction] = useState<"Block" | "Unblock" | "">("");
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response: ApiUser[] = await getAllUsers();
-        setUsers(response.filter((u) => u.role === "client"));
-      } catch (err) {
-        console.error("Error fetching users:", err);
-      }
-    };
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   const handleConfirmAction = async () => {
     if (!selectedUser || !dialogAction) return;
-
-    try {
-      if (dialogAction === "Block") {
-        await blockUser(selectedUser.id);
-        setUsers((prev) =>
-          prev.map((u) =>
-            u.id === selectedUser.id ? { ...u, is_blocked: 1 } : u
-          )
-        );
-      } else {
-        await unblockUser(selectedUser.id);
-        setUsers((prev) =>
-          prev.map((u) =>
-            u.id === selectedUser.id ? { ...u, is_blocked: 0 } : u
-          )
-        );
-      }
-    } catch (err) {
-      console.error(`${dialogAction} failed:`, err);
-    } finally {
-      setIsDialogOpen(false);
-      setSelectedUser(null);
-      setDialogAction("");
+    if (dialogAction === "Block") {
+      await block(selectedUser.id);
+    } else {
+      await unblock(selectedUser.id);
     }
+    setIsDialogOpen(false);
+    setSelectedUser(null);
+    setDialogAction("");
   };
 
-  const openDialog = (user: TableUser, action: "Block" | "Unblock") => {
+  const openDialog = (user: any, action: "Block" | "Unblock") => {
     setSelectedUser(user);
     setDialogAction(action);
     setIsDialogOpen(true);

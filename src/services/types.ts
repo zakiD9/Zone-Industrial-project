@@ -9,4 +9,8 @@ export type User = {
    is_blocked: number;
 };
 
+export type LoginResponse = {
+  user: User;
+  token: string;
+};
 export type UserResponse = User[];

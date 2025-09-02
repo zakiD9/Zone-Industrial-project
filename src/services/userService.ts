@@ -1,6 +1,6 @@
-import type { LoginResponse } from "./types/auth";
+import type { LoginResponse } from "./types";
 import API from "./api";
-import type { UserResponse } from "./types/user";
+import type { UserResponse } from "./types";
 
 export const loginAdmin = async (
   email: string,
