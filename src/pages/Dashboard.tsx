@@ -27,7 +27,7 @@ function LogoutPage() {
 
 const NAVIGATION: Navigation = [
   { segment: "dashboard", title: "Dashboard", icon: <DashboardIcon /> },
-  { segment: "orders", title: "Orders", icon: <ShoppingCartIcon /> },
+  { segment: "request", title: "Requests", icon: <ShoppingCartIcon /> },
   { segment: "users", title: "Users", icon: <PersonIcon /> },
   { kind: "divider" },
   { segment: "logout", title: "Log Out", icon: <LogoutIcon /> },
@@ -51,7 +51,7 @@ export default function Dashboard(props: DemoProps) {
     switch (router.pathname) {
       case "/dashboard":
         return <DashboardSection />;
-      case "/orders":
+      case "/request":
         return <RequestSection />;
       case "/users":
         return <UsersSection />;

@@ -1,5 +1,15 @@
 import { useState } from "react";
-import { Container, Box, TextField, Button, Typography, Paper } from "@mui/material";
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { loginAdmin } from "../services/userService";
 import type { LoginResponse } from "../services/types/auth";
 import { useUserStore } from "../store/UserStore";
@@ -11,6 +21,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const loginUser = useUserStore((state) => state.login);
+  const [showPassword, setShowPassword] = useState(false);
 
  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -52,10 +63,19 @@ const Login = () => {
           <TextField
             label="Password"
             variant="outlined"
-            type="password"
+            type={showPassword ? "text" : "password"}
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           {error && (
             <Typography color="error" align="center">

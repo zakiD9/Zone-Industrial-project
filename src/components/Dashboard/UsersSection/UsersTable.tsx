@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -13,53 +13,68 @@ import {
   Stack,
 } from "@mui/material";
 import ConfirmationDialog from "./ConfirmBlockingorDeactivate";
+import { getAllUsers, blockUser, unblockUser } from "../../../services/userService";
+import type { User as ApiUser } from "../../../services/types/user";
 
-type User = {
+type TableUser = {
   id: number;
-  name: string;
   email: string;
-  status: "Active" | "Deactivated" | "Blocked";
+  fullName: string;
+  password: string;
+  role: string;
+  created_at: string;
+  updated_at: string;
+  is_blocked: number;
 };
 
-const initialUsers: User[] = [
-  { id: 1, name: "John Doe", email: "john@example.com", status: "Active" },
-  { id: 2, name: "Jane Smith", email: "jane@example.com", status: "Deactivated" },
-  { id: 3, name: "Mike Ross", email: "mike@example.com", status: "Blocked" },
-  { id: 4, name: "Sarah Lee", email: "sarah@example.com", status: "Active" },
-];
-
 const UserTable: React.FC = () => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [users, setUsers] = useState<TableUser[]>([]);
   const [search, setSearch] = useState("");
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [dialogAction, setDialogAction] = useState<"Deactivate" | "Activate" | "Block" | "">("");
+  const [selectedUser, setSelectedUser] = useState<TableUser | null>(null);
+  const [dialogAction, setDialogAction] = useState<"Block" | "Unblock" | "">("");
 
-  const handleConfirmAction = () => {
-    if (selectedUser && dialogAction) {
-      setUsers((prev) =>
-        prev.map((user) =>
-          user.id === selectedUser.id
-            ? {
-                ...user,
-                status:
-                  dialogAction === "Deactivate"
-                    ? "Deactivated"
-                    : dialogAction === "Activate"
-                    ? "Active"
-                    : "Blocked",
-              }
-            : user
-        )
-      );
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response: ApiUser[] = await getAllUsers();
+        setUsers(response.filter((u) => u.role === "client"));
+      } catch (err) {
+        console.error("Error fetching users:", err);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  const handleConfirmAction = async () => {
+    if (!selectedUser || !dialogAction) return;
+
+    try {
+      if (dialogAction === "Block") {
+        await blockUser(selectedUser.id);
+        setUsers((prev) =>
+          prev.map((u) =>
+            u.id === selectedUser.id ? { ...u, is_blocked: 1 } : u
+          )
+        );
+      } else {
+        await unblockUser(selectedUser.id);
+        setUsers((prev) =>
+          prev.map((u) =>
+            u.id === selectedUser.id ? { ...u, is_blocked: 0 } : u
+          )
+        );
+      }
+    } catch (err) {
+      console.error(`${dialogAction} failed:`, err);
+    } finally {
+      setIsDialogOpen(false);
+      setSelectedUser(null);
+      setDialogAction("");
     }
-    setIsDialogOpen(false);
-    setSelectedUser(null);
-    setDialogAction("");
   };
 
-  const openDialog = (user: User, action: "Deactivate" | "Activate" | "Block") => {
+  const openDialog = (user: TableUser, action: "Block" | "Unblock") => {
     setSelectedUser(user);
     setDialogAction(action);
     setIsDialogOpen(true);
@@ -67,7 +82,7 @@ const UserTable: React.FC = () => {
 
   const filteredUsers = users.filter(
     (u) =>
-      u.name.toLowerCase().includes(search.toLowerCase()) ||
+      u.fullName.toLowerCase().includes(search.toLowerCase()) ||
       u.email.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -99,56 +114,32 @@ const UserTable: React.FC = () => {
               {filteredUsers.map((user) => (
                 <TableRow key={user.id}>
                   <TableCell>{user.id}</TableCell>
-                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.fullName}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell>
-                    <Typography
-                      color={
-                        user.status === "Active"
-                          ? "green"
-                          : user.status === "Blocked"
-                          ? "red"
-                          : "orange"
-                      }
-                    >
-                      {user.status}
+                    <Typography color={user.is_blocked === 1 ? "red" : "green"}>
+                      {user.is_blocked === 1 ? "Blocked" : "Active"}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    {user.status === "Active" && (
-                      <Stack direction="row" spacing={1}>
-                        <Button
-                          variant="contained"
-                          color="warning"
-                          size="small"
-                          onClick={() => openDialog(user, "Deactivate")}
-                        >
-                          Deactivate
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="error"
-                          size="small"
-                          onClick={() => openDialog(user, "Block")}
-                        >
-                          Block
-                        </Button>
-                      </Stack>
-                    )}
-                    {user.status === "Deactivated" && (
+                    {user.is_blocked === 1 ? (
                       <Button
                         variant="contained"
                         color="success"
                         size="small"
-                        onClick={() => openDialog(user, "Activate")}
+                        onClick={() => openDialog(user, "Unblock")}
                       >
-                        Activate
+                        Unblock
                       </Button>
-                    )}
-                    {user.status === "Blocked" && (
-                      <Typography variant="body2" color="text.secondary">
-                        No actions available
-                      </Typography>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        onClick={() => openDialog(user, "Block")}
+                      >
+                        Block
+                      </Button>
                     )}
                   </TableCell>
                 </TableRow>
