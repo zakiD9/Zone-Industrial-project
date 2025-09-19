@@ -42,3 +42,7 @@ npm install
 Start the development server:
 
 npm run dev
+
+- **Landing Page** → [`/`](http://localhost:5173/)
+- **Admin Dashboard** → [`/admin`](http://localhost:5173/admin)
+- **Admin Login** → [`/login`](http://localhost:5173/login)

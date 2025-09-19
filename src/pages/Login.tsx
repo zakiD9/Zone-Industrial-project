@@ -59,6 +59,13 @@ const Login = () => {
             label="Email"
             variant="outlined"
             fullWidth
+            sx={{
+        "& .MuiOutlinedInput-root": {
+          "&.Mui-focused fieldset": {
+            borderColor: "#F28C28",color:"#F28C28",
+          },
+        },
+      }}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -68,6 +75,13 @@ const Login = () => {
             variant="outlined"
             type={showPassword ? "text" : "password"}
             fullWidth
+            sx={{
+        "& .MuiOutlinedInput-root": {
+          "&.Mui-focused fieldset": {
+            borderColor: "#F28C28",color:"#F28C28",
+          },
+        },
+      }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{
@@ -90,7 +104,7 @@ const Login = () => {
               {success}
             </Typography>
           )}
-          <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
+          <Button type="submit" variant="contained" sx={{backgroundColor:'#F28C28'}} fullWidth disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </Button>
         </Box>

@@ -5,24 +5,28 @@ import ServiceBox from '../components/Home/ServiceBox'
 import { ArrowRight } from '@mui/icons-material'
 import Footer from '../components/Home/Footer'
 import Contact from '../components/Home/Contactus'
+import service1 from "../assets/ChatGPT Image Sep 19, 2025, 12_38_41 PM.png";
+import service2 from "../assets/ChatGPT Image Sep 19, 2025, 12_38_45 PM.png";
+import service3 from "../assets/ChatGPT Image Sep 19, 2025, 12_40_45 PM.png";
+
 
   const services = [
     {
       title: "Industrial Space Leasing",
-      description: "roviding land plots and ready-to-use warehouses for industrial activities.",
-      image: "https://dummyimage.com/720x400",
+      description: "providing land plots and ready-to-use warehouses for industrial activities.",
+      image:service1,
       link: "#",
     },
     {
       title: "Infrastructure Services",
       description: "Access to electricity, water, telecommunications, and industrial wastewater systems.",
-      image: "https://dummyimage.com/721x401",
+      image:service2,
       link: "#",
     },
     {
       title: "Logistics & Administrative Support",
       description: "Facilitation of transport, storage, and administrative procedures for companies.",
-      image: "https://dummyimage.com/722x402",
+      image:service3,
       link: "#",
     },
   ];

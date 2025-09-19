@@ -74,8 +74,8 @@ export default function Header() {
               <span className="sr-only">Your Company</span>
               <img
                 alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
+                src={logo}
+                className="h-14 w-auto"
               />
             </a>
             <button
