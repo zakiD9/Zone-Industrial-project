@@ -19,7 +19,13 @@ export default function Contact() {
                 <label htmlFor="email" className="leading-7 text-sm text-gray-600">
                   Name
                 </label>
-                <TextField variant="outlined" size="small"/>
+                <TextField sx={{
+        "& .MuiOutlinedInput-root": {
+          "&.Mui-focused fieldset": {
+            borderColor: "#F28C28",
+          },
+        },
+      }} variant="outlined" size="small"/>
               </div>
             </div>
 
@@ -28,7 +34,13 @@ export default function Contact() {
                 <label htmlFor="email" className="leading-7 text-sm text-gray-600">
                   Email
                 </label>
-                <TextField variant="outlined" size="small"/>
+                <TextField sx={{
+        "& .MuiOutlinedInput-root": {
+          "&.Mui-focused fieldset": {
+            borderColor: "#F28C28",
+          },
+        },
+      }} variant="outlined" size="small"/>
               </div>
             </div>
 
@@ -41,17 +53,22 @@ export default function Contact() {
                   id="message"
                   variant="outlined"
                   multiline
+                  sx={{
+        "& .MuiOutlinedInput-root": {
+          "&.Mui-focused fieldset": {
+            borderColor: "#F28C28",
+          },
+        },
+      }}
                   rows={4}
                 />
               </div>
             </div>
 
-            {/* Submit Button */}
             <div className="p-2 w-full justify-center flex">
-              <Button size="large" variant="contained">Submit</Button>
+              <Button sx={{backgroundColor:'#F28C28'}} size="large" variant="contained">Submit</Button>
             </div>
 
-            {/* Contact Info */}
             <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
               <a href="mailto:example@email.com" className="text-indigo-500">
                 example@email.com

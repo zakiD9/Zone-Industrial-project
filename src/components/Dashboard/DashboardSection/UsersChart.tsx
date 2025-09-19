@@ -6,7 +6,7 @@ interface RequestsChartProps {
 
 const COLORS = ["#4caf50", "#f44336", "#ff9800"];
 
-export default function RequestsChart({ data }: RequestsChartProps) {
+export default function UsersChart({ data }: RequestsChartProps) {
   const chartData = data.filter(item => item.label !== "Total Requests");
 
   return (

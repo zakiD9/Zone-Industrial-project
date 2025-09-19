@@ -10,7 +10,7 @@ export default function NotFound(){
             <span className="font-semibold text-xl">Page not found !</span>
             <span className="text-sm text-center text-gray-600">Something went wrong. It’s look that your requested could not be found. It’s look like the link is broken or the page is removed.</span>
             <div className="flex items-center">
-                <Button href="/" variant="contained" startIcon={<HomeFilled />}>Go to Home Page</Button>
+                <Button href="/" variant="contained" sx={{backgroundColor:'#F28C28'}} startIcon={<HomeFilled />}>Go to Home Page</Button>
             </div>
         </div>
         </>

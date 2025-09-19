@@ -3,6 +3,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ArrowRight } from '@mui/icons-material'
 import { Button } from '@mui/material'
+import logo from "../../assets/zone_logo.png";
 
 const navigation = [
   { name: 'Home', href: 'home' },
@@ -13,32 +14,29 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  // scroll helper
   const handleScroll = (e: React.MouseEvent, id: string) => {
     e.preventDefault()
     const section = document.getElementById(id)
     if (section) {
       section.scrollIntoView({ behavior: "smooth" })
-      setMobileMenuOpen(false) // also close menu on mobile
+      setMobileMenuOpen(false)
     }
   }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-white shadow">
       <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
-        {/* Logo */}
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img
               alt=""
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto"
+              src={logo}
+              className="h-14  w-auto"
             />
           </a>
         </div>
 
-        {/* Mobile menu button */}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -50,7 +48,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Desktop nav */}
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
             <a
@@ -64,13 +61,11 @@ export default function Header() {
           ))}
         </div>
 
-        {/* Call to action */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Button size="small" endIcon={<ArrowRight />}>Mobile App</Button>
+          <Button sx={{color:'#F28C28'}} size="small" endIcon={<ArrowRight />}>Mobile App</Button>
         </div>
       </nav>
 
-      {/* Mobile dialog */}
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 overflow-y-auto">

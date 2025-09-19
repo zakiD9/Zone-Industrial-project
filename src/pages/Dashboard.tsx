@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { createTheme } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -14,6 +13,7 @@ import RequestSection from "../components/Dashboard/OrdersSection/RequestSection
 import UsersSection from "../components/Dashboard/UsersSection/UsersSection";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { useUserStore } from "../store/UserStore";
+import logo from "../assets/zone_logo.png";
 
 
 
@@ -62,7 +62,14 @@ const NAVIGATION: Navigation = [
 const demoTheme = createTheme({
   cssVariables: { colorSchemeSelector: "data-toolpad-color-scheme" },
   breakpoints: { values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 } },
+  palette: {
+    primary: {
+      main: "#F28C28", 
+      contrastText: "#fff",
+    },
+  },
 });
+
 
 interface DemoProps {
   window?: () => Window;
@@ -93,7 +100,7 @@ export default function Dashboard(props: DemoProps) {
       <AppProvider
         navigation={NAVIGATION}
         branding={{
-          logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
+          logo: <img src={logo} alt="logo" />,
           title: "Admin",
           homeUrl: "/dashboard",
         }}

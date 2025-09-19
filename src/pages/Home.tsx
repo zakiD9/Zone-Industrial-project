@@ -8,20 +8,20 @@ import Contact from '../components/Home/Contactus'
 
   const services = [
     {
-      title: "Web Development",
-      description: "Build fast, modern, and responsive websites.",
+      title: "Industrial Space Leasing",
+      description: "roviding land plots and ready-to-use warehouses for industrial activities.",
       image: "https://dummyimage.com/720x400",
       link: "#",
     },
     {
-      title: "UI/UX Design",
-      description: "Craft beautiful and user-friendly interfaces.",
+      title: "Infrastructure Services",
+      description: "Access to electricity, water, telecommunications, and industrial wastewater systems.",
       image: "https://dummyimage.com/721x401",
       link: "#",
     },
     {
-      title: "SEO Optimization",
-      description: "Improve your site's ranking on search engines.",
+      title: "Logistics & Administrative Support",
+      description: "Facilitation of transport, storage, and administrative procedures for companies.",
       image: "https://dummyimage.com/722x402",
       link: "#",
     },
@@ -45,8 +45,8 @@ export default function Home() {
             className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="text-center">
+        <div className="mx-auto w-full max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="text-center border p-4 backdrop-blur-md rounded-lg">
             <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
               Data to enrich your online business
             </h1>
@@ -55,10 +55,11 @@ export default function Home() {
               fugiat veniam occaecat.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-3">
-              <Button variant="contained">Get Started</Button>
+              <Button sx={{backgroundColor:'#F28C28'}} variant="contained">Get Started</Button>
               <Button
                 size="small"
                 endIcon={<ArrowRight />}
+                sx={{color:'#F28C28'}}
                 onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
               >Our services</Button>
             </div>

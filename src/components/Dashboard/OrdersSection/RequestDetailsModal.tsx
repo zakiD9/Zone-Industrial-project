@@ -99,9 +99,40 @@ export default function RequestModal({
       <DialogContent dividers>
         {selectedRequest && (
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Typography><b>ID:</b> {selectedRequest.id}</Typography>
-            </Grid>
+            {selectedRequest.documents && selectedRequest.documents.length > 0 && (
+  <Grid item xs={12}>
+    <Typography><b>Documents:</b></Typography>
+    <Grid container spacing={2} mt={1}>
+      {selectedRequest.documents.map((doc, index) => {
+        const isImage = /\.(png|jpe?g)$/i.test(doc);
+        const isPdf = /\.pdf$/i.test(doc);
+
+        return (
+          <Grid item key={index}>
+            {isImage ? (
+              <img
+                src={doc}
+                alt={`Document ${index + 1}`}
+                style={{ width: 120, height: "auto", borderRadius: 8, border: "1px solid #ddd" }}
+              />
+            ) : isPdf ? (
+              <Button
+                variant="outlined"
+                href={doc}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View PDF
+              </Button>
+            ) : (
+              <Typography>{doc}</Typography>
+            )}
+          </Grid>
+        );
+      })}
+    </Grid>
+  </Grid>
+)}
             <Grid item xs={6}>
               <Typography><b>Type:</b> {selectedRequest.requestType}</Typography>
             </Grid>
@@ -112,7 +143,7 @@ export default function RequestModal({
               <Grid item xs={6}>
                 <Typography><b>City:</b> {selectedRequest.city}</Typography>
               </Grid>
-            )}
+            )}c
             {selectedRequest.state && (
               <Grid item xs={6}>
                 <Typography><b>State:</b> {selectedRequest.state}</Typography>

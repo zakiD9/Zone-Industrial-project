@@ -5,9 +5,8 @@ import HourglassEmptyOutlinedIcon from "@mui/icons-material/HourglassEmptyOutlin
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 import { Person } from "@mui/icons-material";
 import { Card, CardContent, Typography } from "@mui/material";
-
 import StatCard from "./StatBox";
-import RequestsChart from "./RequestsChart";
+import UsersChart from "./UsersChart";
 import { getAllRequests } from "../../../services/requestService";
 import { getAllUsers } from "../../../services/userService";
 import type { Request, RequestResponse, UserResponse, User } from "../../../services/types";
@@ -56,7 +55,6 @@ export default function DashboardSection() {
           <StatCard key={index} icon={stat.icon} count={stat.count} label={stat.label} />
         ))}
       </div>
-
       <div className="flex w-full gap-4">
         <Card
           sx={{
@@ -71,7 +69,7 @@ export default function DashboardSection() {
             <Typography variant="h6" fontWeight="bold" mb={2}>
               Users Overview
             </Typography>
-            <RequestsChart data={usersData} />
+            <UsersChart data={usersData} />
           </CardContent>
         </Card>
 

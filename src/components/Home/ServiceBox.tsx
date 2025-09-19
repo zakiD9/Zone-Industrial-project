@@ -31,7 +31,7 @@ export default function ServiceBox({ service }: ServiceBoxProps) {
           <p className="leading-relaxed mb-3">{service.description}</p>
           <div className="flex">
             {service.link && (
-              <Button size="small" endIcon={<ArrowRight />}>Learn more</Button>
+              <Button sx={{color:'#F28C28'}} size="small" endIcon={<ArrowRight />}>Learn more</Button>
             )}
           </div>
         </div>
