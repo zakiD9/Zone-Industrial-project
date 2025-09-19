@@ -30,7 +30,7 @@ import Contact from '../components/Home/Contactus'
 export default function Home() {
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#F2F5EC]">
       <Header />
       <div id='home' className="relative isolate px-6 pt-14 lg:px-8">
         <div
@@ -46,7 +46,7 @@ export default function Home() {
           />
         </div>
         <div className="mx-auto w-full max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="text-center border p-4 backdrop-blur-md rounded-lg">
+          <div className="text-center  p-4 backdrop-blur-xl rounded-lg">
             <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
               Data to enrich your online business
             </h1>

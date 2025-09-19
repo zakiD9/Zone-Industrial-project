@@ -70,13 +70,13 @@ export default function Contact() {
             </div>
 
             <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-              <a href="mailto:example@email.com" className="text-indigo-500">
-                example@email.com
+              <a href="mailto:example@email.com" className="text-[#F28C28]">
+                zoneIndu@email.com
               </a>
               <p className="leading-normal my-5">
-                49 Smith St.
+                Zone Industrial.
                 <br />
-                Saint Cloud, MN 56301
+                Constantine, Algeria
               </p>
               
             </div>
