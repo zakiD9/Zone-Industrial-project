@@ -48,11 +48,10 @@ export default function Home() {
         <div className="mx-auto w-full max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center  p-4 backdrop-blur-xl rounded-lg">
             <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
-              Data to enrich your online business
+              Build, Grow, and Innovate with Zone Industrial
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-              fugiat veniam occaecat.
+              We simplify your industrial journey by offering ready-to-use spaces, reliable infrastructure, and tailored support services.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-3">
               <Button sx={{backgroundColor:'#F28C28'}} variant="contained">Get Started</Button>
